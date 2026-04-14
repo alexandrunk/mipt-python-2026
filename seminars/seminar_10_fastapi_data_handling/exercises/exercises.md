@@ -88,7 +88,7 @@ SQLModel использует SQLAlchemy под капотом. Для LIKE-за
 from sqlmodel import col
 statement = select(Note).where(col(Note.title).icontains(query))
 ```
-`icontains` генерирует `WHERE title ILIKE '%query%'` (регистронезависимо).
+`icontains` генерирует `WHERE title ILIKE '%query%'` (регистронезависимо - только в PostgreSQL; SQlite, который "призывает" 01_sqlmodel_intro.py строчкой "sqlite:///:memory:", регистронезависимо работает только с латиницей, не с кириллицей).
 
 </details>
 
@@ -112,7 +112,7 @@ def search_notes(query: str) -> list[Note]:
 # create_note(NoteCreate(title="Список покупок"))
 # create_note(NoteCreate(title="Встреча с командой"))
 # results = search_notes("покуп")
-# print([n.title for n in results])  # ['Купить продукты', 'Список покупок']
+# print([n.title for n in results])  # только ['Список покупок']
 ```
 
 </details>
